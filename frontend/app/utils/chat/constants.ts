@@ -1,0 +1,42 @@
+const messages = [
+  { username: 'OwlWatcherAlice', message: 'Those baby owls are adorable!', color: 'purple' },
+  { username: 'FeatherFanBob', message: 'Look at that owl stretching its wings!', color: 'blue' },
+  { username: 'HootHootCarol', message: 'The owls are so peaceful to watch.', color: 'red' },
+  { username: 'NocturnalDave', message: 'I could watch these owls all night!', color: 'purple' },
+  { username: 'TwilightEve', message: 'Has anyone seen the owl pair in the corner?', color: 'blue' },
+  { username: 'PerchedFrank', message: 'The way they blink is mesmerizing!', color: 'red' },
+  { username: 'OwlNestGrace', message: 'I love the variety of owls on this stream.', color: 'purple' },
+  { username: 'SilentWingsHeidi', message: 'The owls are so calm tonight.', color: 'blue' },
+  { username: 'NightOwlIvan', message: 'When is the next owl feeding time?', color: 'red' },
+  { username: 'HootingHank', message: 'Those owls are really active tonight!', color: 'purple' },
+  { username: 'FeatheredFriend', message: 'I love seeing the owls interact with each other.', color: 'blue' },
+  { username: 'WiseOldOwl', message: 'Can you spot the owl with the unique markings?', color: 'red' },
+  { username: 'MidnightMarauder', message: 'The stream is so calming after a long day.', color: 'purple' },
+  { username: 'DuskTillDawn', message: 'I’m fascinated by the different owl calls.', color: 'blue' },
+  { username: 'WingspanWill', message: 'Look at that owl flying across the screen!', color: 'red' },
+  { username: 'OwlEnthusiast', message: 'This stream is perfect for relaxing.', color: 'purple' },
+  { username: 'NocturnalNina', message: 'I think I just saw a rare owl species!', color: 'blue' },
+  { username: 'EagleEyeEd', message: 'The detail in the owls’ feathers is amazing.', color: 'red' },
+  { username: 'TwilightTom', message: 'Love the way the owls look at the camera.', color: 'purple' },
+  { username: 'OwlsInTheWild', message: 'So many different types of owls here.', color: 'blue' },
+  { username: 'MoonlightMaddie', message: 'I could watch these owls for hours.', color: 'red' },
+  { username: 'DawnWatcherDan', message: 'The owls seem so relaxed right now.', color: 'purple' },
+  { username: 'StarlitSally', message: 'I’m loving the owl families on this stream.', color: 'blue' },
+  { username: 'OwlGazerGeorge', message: 'That owl perched on the branch is so cute!', color: 'red' },
+  { username: 'HootsAndHugs', message: 'The owl’s head turns so smoothly.', color: 'purple' },
+  { username: 'QuietNightNina', message: 'I love the sound of the owls hooting softly.', color: 'blue' },
+  { username: 'MoonlitMike', message: 'Such a soothing stream to end the day.', color: 'red' },
+  { username: 'FeatheredFanatic', message: 'The owls are so interesting to watch.', color: 'purple' },
+  { username: 'HootMasterHank', message: 'That owl looks so wise!', color: 'blue' },
+  { username: 'DuskDiva', message: 'The owl pairs are so adorable.', color: 'red' },
+  { username: 'SereneStream', message: 'The owls are so captivating to watch.', color: 'purple' },
+  { username: 'OwlyOllie', message: 'Does anyone know if there’s a rare owl species here?', color: 'blue' },
+  { username: 'NighthawkNate', message: 'The owl’s eyes are so expressive.', color: 'red' },
+  { username: 'WingsOfNight', message: 'I love the way the owls react to the camera.', color: 'purple' },
+  { username: 'FeatherFanJo', message: 'That owl’s wing span is incredible!', color: 'blue' },
+  { username: 'MoonlitMarty', message: 'The stream is perfect for relaxation.', color: 'red' }
+];
+
+export default messages;
+
+
