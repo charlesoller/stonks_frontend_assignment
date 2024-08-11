@@ -8,7 +8,7 @@ import Button from "../Button";
 import BonusButton from "../BonusButton";
 import Input from "../Input";
 import Messages from "./Messages";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Message } from "@/app/utils/chat/types";
 import { DEFAULT_MESSAGES } from "@/app/utils/chat/constants";
 import { getCurrentUsers } from "./utils/helpers";
@@ -20,7 +20,7 @@ export default function Chat() {
 
   useEffect(() => {
     setCurrentUsers(getCurrentUsers(messages))
-  }, [ messages ])
+  }, [messages])
 
   const handleChatSubmit = (message: string) => {
     setMessages(prev => [...prev, {
@@ -29,13 +29,13 @@ export default function Chat() {
       color: "blue",
       message
     }])
-  } 
+  }
 
   return (
     <aside className="bg-twitchGray-400 w-[340px] flex flex-col gap-2 items-center justify-center border-l border-l-twitchGray-250 p-2.5 overflow-clip">
       {/* <p>Chat</p> */}
-      <Messages messages={messages}/>
-      <Input 
+      <Messages messages={messages} />
+      <Input
         value={input}
         onChange={(val: string) => setInput(val)}
         onSubmit={handleChatSubmit}
@@ -43,8 +43,8 @@ export default function Chat() {
       <div className="flex justify-between w-full">
         <div className="flex items-center gap-1">
           <IconButton
-           icon={<LuGem color="#BF93FF"/>}
-           tooltipText="Bits"
+            icon={<LuGem color="#BF93FF" />}
+            tooltipText="Bits"
           >
             0
           </IconButton>
@@ -55,7 +55,9 @@ export default function Chat() {
             icon={<GoGear />}
             tooltipText="Settings"
           />
-          <Button>
+          <Button
+            onClick={() => handleChatSubmit(input)}
+          >
             Chat
           </Button>
         </div>
