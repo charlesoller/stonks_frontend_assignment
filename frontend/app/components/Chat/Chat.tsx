@@ -11,12 +11,26 @@ import Messages from "./Messages";
 import { useEffect, useRef, useState } from "react";
 import { Message } from "@/app/utils/chat/types";
 import { DEFAULT_MESSAGES } from "@/app/utils/chat/constants";
-import { getCurrentUsers } from "./utils/helpers";
+import { getCurrentUsers, getNewMessage } from "./utils/helpers";
 
 export default function Chat() {
   const [messages, setMessages] = useState<Message[]>(DEFAULT_MESSAGES);
   const [currentUsers, setCurrentUsers] = useState<string[]>([]);
   const [input, setInput] = useState<string>("");
+
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const newMessage = getNewMessage(messages);
+      if (newMessage) {
+        setMessages(prev => [...prev, newMessage])
+      }
+    }, 5000); // 10000 milliseconds = 10 seconds
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [])
 
   useEffect(() => {
     setCurrentUsers(getCurrentUsers(messages))
