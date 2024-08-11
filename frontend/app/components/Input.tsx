@@ -5,10 +5,25 @@ import { LuPartyPopper } from "react-icons/lu";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 
 import IconButton from "./IconButton";
-import { useState } from "react";
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react";
 
-export default function Input() {
-  const [input, setInput] = useState<string>('');
+interface InputProps {
+  value: string;
+  onChange: (val: string) => void;
+  onSubmit: (val: string) => void;
+}
+
+export default function Input({ value, onChange, onSubmit}: InputProps) {
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value)
+  }
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSubmit(value);
+    onChange('');
+  }
 
   return (
     <div className="relative flex w-full gap-1 p-1 border border-twitchGray-200 rounded transition-all group">
@@ -20,7 +35,13 @@ export default function Input() {
         icon={<FaRegStar />}
         tooltipText="Identity"
       />
-      <input className="bg-transparent w-4/5" />
+      <form className="w-4/5" onSubmit={handleSubmit}>
+        <input 
+          className="bg-transparent w-full text-sm" 
+          value={value}
+          onChange={handleChange}
+        />
+      </form>
       <div className="flex gap-1">
         <IconButton
           icon={<LuPartyPopper />}

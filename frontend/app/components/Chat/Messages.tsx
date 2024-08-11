@@ -6,7 +6,7 @@ interface MessagesProps {
 }
 
 export default function Messages({ messages }: MessagesProps) {
-  const messageElements = messages.map(message => <MessageComponent message={message} />)
+  const messageElements = messages.map(message => <MessageComponent message={message} key={message.id} />)
 
   return (
     <div className="overflow-y-scroll flex flex-col gap-1.5">
