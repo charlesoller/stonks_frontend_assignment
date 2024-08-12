@@ -2,13 +2,18 @@ import { COMMANDS } from "./constants";
 
 export const filterUsers = (users: string[], queryString: string) => {
   if (!queryString.length) return users;
-  return users.filter(user => user.toLowerCase().startsWith(queryString.toLowerCase()));
+  return users.filter(user => 
+    user.toLowerCase().startsWith(queryString.toLowerCase())
+    || user.toLowerCase().includes(queryString.toLowerCase())
+  );
 }
 
 export const filterCommands = (query: string) => {
-  console.log("QUERY: ")
   if (!query.length) return COMMANDS;
-  return COMMANDS.filter(cmd => cmd.name.toLowerCase().startsWith(query.toLowerCase()))
+  return COMMANDS.filter(cmd => 
+    cmd.name.toLowerCase().startsWith(query.toLowerCase())
+    || cmd.name.toLowerCase().includes(query.toLowerCase())
+  )
 }
 
 export const isAlphanumeric = (str: string) => {
