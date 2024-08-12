@@ -25,7 +25,7 @@ export default function Chat() {
       if (newMessage) {
         setMessages(prev => [...prev, newMessage])
       }
-    }, 5000); // 10000 milliseconds = 10 seconds
+    }, 10000); // 10000 milliseconds = 10 seconds
 
     return () => {
       clearInterval(intervalId);
@@ -46,13 +46,14 @@ export default function Chat() {
   }
 
   return (
-    <aside className="bg-twitchGray-400 w-[340px] flex flex-col gap-2 items-center justify-center border-l border-l-twitchGray-250 p-2.5 overflow-clip">
+    <aside className="bg-twitchGray-400 w-[340px] flex flex-col gap-2 items-center justify-center border-l border-l-twitchGray-250 p-2.5">
       {/* <p>Chat</p> */}
       <Messages messages={messages} />
       <Input
         value={input}
         onChange={(val: string) => setInput(val)}
         onSubmit={handleChatSubmit}
+        users={currentUsers}
       />
       <div className="flex justify-between w-full">
         <div className="flex items-center gap-1">

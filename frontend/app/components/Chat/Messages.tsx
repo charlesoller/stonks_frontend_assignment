@@ -19,23 +19,21 @@ export default function Messages({ messages }: MessagesProps) {
     }
   };
 
+  useEffect(() => {
+    if (containerRef.current && isScrolledToBottom) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
 
   useEffect(() => {
-    // Scroll to the bottom whenever the messages array changes
-    if (containerRef.current && isScrolledToBottom) {
-        containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    // Listens to scroll event on the container to keep state up to date
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('scroll', checkIfScrolledToBottom);
+      return () => container.removeEventListener('scroll', checkIfScrolledToBottom);
     }
-}, [messages]);
-
-
-useEffect(() => {
-  // Listens to scroll event on the container to keep state up to date
-  const container = containerRef.current;
-  if (container) {
-    container.addEventListener('scroll', checkIfScrolledToBottom);
-    return () => container.removeEventListener('scroll', checkIfScrolledToBottom);
-  }
-}, []);
+  }, []);
 
 
   return (
