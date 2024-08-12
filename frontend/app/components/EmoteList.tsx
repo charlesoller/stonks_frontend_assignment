@@ -10,7 +10,7 @@ export default function EmoteList({ query, onClick }: EmoteListProps) {
   const filteredEmotes = filterEmotes(query);
 
   const emoteElements = filteredEmotes.map(emote => (
-    <div className="hover:bg-twitchGray-250 rounded p-2 cursor-pointer flex items-center gap-2" onClick={() => onClick(emote.name, 'emote')}>
+    <div key={emote.name} className="hover:bg-twitchGray-250 rounded p-2 cursor-pointer flex items-center gap-2" onClick={() => onClick(emote.name, 'emote')}>
       <CustomEmote emote={emote} />
       <p className="text-xs">{emote.name}</p>
     </div>

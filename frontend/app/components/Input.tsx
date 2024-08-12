@@ -11,6 +11,7 @@ import UserList from "./UserList";
 import { filterUsers, getQuerySymbol, isCommandQuery, isEmoteQuery, isUserQuery } from "../utils/chat/helpers";
 import CommandsList from "./CommandsList";
 import EmoteList from "./EmoteList";
+import { EMOTES } from "../utils/chat/constants";
 
 interface InputProps {
   value: string;
@@ -25,7 +26,9 @@ export default function Input({ value, onChange, onSubmit, users }: InputProps) 
   const [targetUsers, setTargetUsers] = useState<string[]>(users);
   const [commandQuery, setCommandQuery] = useState<string>('');
   const [emoteQuery, setEmoteQuery] = useState<string>('');
-  const inputElementRef = useRef(null) as any;
+  const [content, setContent] = useState('');
+
+  const inputElementRef = useRef<HTMLDivElement>(null) as any;
 
   useEffect(() => {
     if (isUserQuery(value)) {
@@ -92,6 +95,7 @@ export default function Input({ value, onChange, onSubmit, users }: InputProps) 
       />
     )
   }
+
 
   return (
     <div className="relative flex w-full gap-1 p-1 border border-twitchGray-200 rounded transition-all group">
