@@ -1,5 +1,6 @@
-import { EXTRA_MESSAGES } from "@/app/utils/chat/constants";
-import { Message } from "@/app/utils/chat/types";
+import { EMOTES, EXTRA_MESSAGES } from "@/app/utils/chat/constants";
+import { Emote, Message } from "@/app/utils/chat/types";
+import CustomEmote from "../../CustomEmote";
 
 // Filters the messages for unique usernames
 export const getCurrentUsers = (messages: Message[]) => Array.from(
@@ -20,3 +21,18 @@ export const getNewMessage = (messages: Message[]) => {
   }
   return;
 }
+
+export const parseMessage = (message: string): (string | JSX.Element)[] => {
+  const emoteMap = new Map(EMOTES.map(emote => [emote.name, emote]));
+
+  return message.split(' ').map((word, index) => {
+    if (word.startsWith(':')) {
+      const emoteName = word.slice(1);
+      if (emoteMap.has(emoteName)) {
+        const emote = emoteMap.get(emoteName);
+        return <CustomEmote key={index} emote={emote!} />;
+      }
+    }
+    return word + ' ';
+  });
+};

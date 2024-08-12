@@ -10,3 +10,8 @@ export interface Command {
   type: string,
   description: string
 }
+
+export interface Emote {
+  name: string,
+  url: string
+}

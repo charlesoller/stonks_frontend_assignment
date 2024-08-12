@@ -1,4 +1,5 @@
 import { Message } from "@/app/utils/chat/types";
+import { parseMessage } from "./utils/helpers";
 
 interface MessageComponentProps {
   message: Message;
@@ -11,7 +12,7 @@ export default function MessageComponent({ message }: MessageComponentProps) {
     <div key={id}>
       <p className='text-xs'>
         <span className={`font-semibold text-twitchText-${color}`}>{username}: </span>
-        {content}
+        {parseMessage(content)}
       </p>
     </div>
   )

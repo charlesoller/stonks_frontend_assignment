@@ -43,6 +43,8 @@ export default function Chat() {
       color: "blue",
       message
     }])
+
+    setInput('')
   }
 
   return (

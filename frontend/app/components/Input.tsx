@@ -8,8 +8,9 @@ import IconButton from "./IconButton";
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useRef, useState } from "react";
 import Popover from "./Popover";
 import UserList from "./UserList";
-import { filterUsers, isCommandQuery, isUserQuery } from "../utils/chat/helpers";
+import { filterUsers, getQuerySymbol, isCommandQuery, isEmoteQuery, isUserQuery } from "../utils/chat/helpers";
 import CommandsList from "./CommandsList";
+import EmoteList from "./EmoteList";
 
 interface InputProps {
   value: string;
@@ -20,9 +21,10 @@ interface InputProps {
 
 export default function Input({ value, onChange, onSubmit, users }: InputProps) {
   const [popoverVisible, setPopoverVisible] = useState<boolean>(false);
-  const [popoverComponent, setPopoverComponent] = useState<'users' | 'commands' | null>(null);
+  const [popoverComponent, setPopoverComponent] = useState<'users' | 'commands' | 'emotes' | null>(null);
   const [targetUsers, setTargetUsers] = useState<string[]>(users);
   const [commandQuery, setCommandQuery] = useState<string>('');
+  const [emoteQuery, setEmoteQuery] = useState<string>('');
   const inputElementRef = useRef(null) as any;
 
   useEffect(() => {
@@ -37,6 +39,11 @@ export default function Input({ value, onChange, onSubmit, users }: InputProps) 
       setCommandQuery(queryString);
       setPopoverVisible(true);
       setPopoverComponent('commands');
+    } else if (isEmoteQuery(value)) {
+      const queryString = value.slice(value.indexOf(':') + 1);
+      setEmoteQuery(queryString);
+      setPopoverVisible(true);
+      setPopoverComponent('emotes');
     } else {
       setPopoverVisible(false);
       setPopoverComponent(null);
@@ -44,8 +51,8 @@ export default function Input({ value, onChange, onSubmit, users }: InputProps) 
     }
   }, [value])
 
-  const handleSelectOption = (option: string, context: 'user' | 'command') => {
-    const splitChar = context === 'user' ? '@' : '/';
+  const handleSelectOption = (option: string, context: 'user' | 'command' | 'emote') => {
+    const splitChar = getQuerySymbol(context);
     const atIndex = value.indexOf(splitChar);
     const pre = value.slice(0, atIndex);
     onChange(`${pre}${splitChar}${option} `)
@@ -65,20 +72,31 @@ export default function Input({ value, onChange, onSubmit, users }: InputProps) 
     onChange('');
   }
 
+  const renderPopoverElement = () => {
+    if (popoverComponent === 'commands') return (
+      <CommandsList
+        query={commandQuery}
+        onClick={handleSelectOption}
+      />
+    )
+    if (popoverComponent === 'emotes') return (
+      <EmoteList
+        query={emoteQuery}
+        onClick={handleSelectOption}
+      />
+    )
+    return (
+      <UserList
+        users={targetUsers}
+        onClick={handleSelectOption}
+      />
+    )
+  }
+
   return (
     <div className="relative flex w-full gap-1 p-1 border border-twitchGray-200 rounded transition-all group">
       <Popover isVisible={popoverVisible}>
-        {popoverComponent === 'users' ? (
-          <UserList 
-          users={targetUsers} 
-          onClick={handleSelectOption}
-          />
-        ) : (
-          <CommandsList 
-            query={commandQuery}
-            onClick={handleSelectOption}
-          />
-        )}
+        {renderPopoverElement() || null}
       </Popover>
 
       {/* Pseudo Element for hover */}

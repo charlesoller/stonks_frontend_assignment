@@ -1,4 +1,4 @@
-import { Command, Message } from "./types";
+import { Command, Emote, Message } from "./types";
 
 export const DEFAULT_MESSAGES: Message[] = [
   { id: 1, username: 'OwlWatcherAlice', message: 'Those baby owls are adorable!', color: 'purple' },
@@ -133,6 +133,13 @@ export const COMMANDS: Command[] = [
   { name: 'mods', type: 'none', description: 'Display a list of moderators for this channel.' },
   { name: 'vips', type: 'none', description: 'Display a list of VIPs for this channel.' },
   { name: 'vote', type: 'index', description: 'Vote in the active poll on the given channel.' }
+]
+
+export const EMOTES: Emote[] = [
+  { name: 'catJam', url: 'emotes/catJam.webp' },
+  { name: 'EZ', url: 'emotes/EZ.webp' },
+  { name: 'KEKW', url: 'emotes/KEKW.webp' },
+  { name: 'monkaS', url: 'emotes/monkaS.webp' }
 ]
 
 

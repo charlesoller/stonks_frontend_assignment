@@ -1,4 +1,4 @@
-import { COMMANDS } from "./constants";
+import { COMMANDS, EMOTES } from "./constants";
 
 export const filterUsers = (users: string[], queryString: string) => {
   if (!queryString.length) return users;
@@ -16,9 +16,23 @@ export const filterCommands = (query: string) => {
   )
 }
 
+export const filterEmotes = (query: string) => {
+  if (!query.length) return EMOTES;
+  return EMOTES.filter(emote => 
+    emote.name.toLowerCase().startsWith(query.toLowerCase())
+    || emote.name.toLowerCase().includes(query.toLowerCase())
+  )
+}
+
 export const isAlphanumeric = (str: string) => {
   const regex = /^[a-z0-9]+$/i;
   return regex.test(str);
+}
+
+export const getQuerySymbol = (context: 'user' | 'command' | 'emote') => {
+  if (context === 'user') return '@';
+  if (context === 'emote') return ':';
+  return '/';
 }
 
 export const isUserQuery = (value: string) => {
@@ -36,6 +50,17 @@ export const isCommandQuery = (value: string) => {
   if (value.includes('/')) {
     const split = value.split(' ');
     if (!split[split.length - 1].includes('/')) {
+      return false;
+    }
+    return true;
+  }
+  return false;
+}
+
+export const isEmoteQuery = (value: string) => {
+  if (value.includes(':')) {
+    const split = value.split(' ');
+    if (!split[split.length - 1].includes(':')) {
       return false;
     }
     return true;

@@ -2,7 +2,7 @@
 
 interface UserListProps {
   users: string[];
-  onClick: (user: string, context: 'user' | 'command') => void;
+  onClick: (user: string, context: 'user' | 'command' | 'emote') => void;
 }
 
 export default function UserList({ users, onClick }: UserListProps) {
