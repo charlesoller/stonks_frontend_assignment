@@ -5,7 +5,7 @@ import { LuPartyPopper } from "react-icons/lu";
 import { HiOutlineEmojiHappy } from "react-icons/hi";
 
 import IconButton from "./IconButton";
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react";
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useRef, useState } from "react";
 import Popover from "./Popover";
 import UserList from "./UserList";
 import { filterUsers, isUserQuery } from "../utils/chat/helpers";
@@ -21,6 +21,7 @@ export default function Input({ value, onChange, onSubmit, users }: InputProps) 
   const [popoverVisible, setPopoverVisible] = useState<boolean>(false);
   const [popoverComponent, setPopoverComponent] = useState<'users' | 'commands' | null>(null);
   const [targetUsers, setTargetUsers] = useState<string[]>(users);
+  const inputElementRef = useRef();
 
   useEffect(() => {
     if (isUserQuery(value)) {
@@ -42,7 +43,8 @@ export default function Input({ value, onChange, onSubmit, users }: InputProps) 
     const atIndex = value.indexOf('@');
     const pre = value.slice(0, atIndex);
     onChange(`${pre}@${user} `)
-    setPopoverVisible(false)
+    setPopoverVisible(false);
+    inputElementRef.current.focus();
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -81,6 +83,7 @@ export default function Input({ value, onChange, onSubmit, users }: InputProps) 
           value={value}
           onChange={handleChange}
           placeholder="Send a Message"
+          ref={inputElementRef}
         />
       </form>
       <div className="flex gap-1">
