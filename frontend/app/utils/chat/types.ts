@@ -4,3 +4,9 @@ export interface Message {
   message: string;
   color: 'purple' | 'blue' | 'red';
 }
+
+export interface Command {
+  name: string,
+  type: string,
+  description: string
+}

@@ -2,12 +2,12 @@
 
 interface UserListProps {
   users: string[];
-  onClick: (user: string) => void;
+  onClick: (user: string, context: 'user' | 'command') => void;
 }
 
 export default function UserList({ users, onClick }: UserListProps) {
   const userElements = users.map(user => (
-    <div className="hover:bg-twitchGray-250 rounded p-2 cursor-pointer" onClick={() => onClick(user)}>
+    <div className="hover:bg-twitchGray-250 rounded p-2 cursor-pointer" onClick={() => onClick(user, 'user')}>
       <p className="text-xs">{user}</p>
     </div>
   ))
@@ -18,7 +18,7 @@ export default function UserList({ users, onClick }: UserListProps) {
       {userElements.length ? (
         userElements
       ) : (
-        <div className="hover:bg-twitchGray-250 rounded p-2 cursor-pointer" onClick={() => onClick(user)}>
+        <div className="hover:bg-twitchGray-250 rounded p-2 cursor-pointer">
           <p className="text-xs">No users found.</p>
         </div>
       )

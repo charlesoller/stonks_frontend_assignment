@@ -8,7 +8,8 @@ import IconButton from "./IconButton";
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useRef, useState } from "react";
 import Popover from "./Popover";
 import UserList from "./UserList";
-import { filterUsers, isUserQuery } from "../utils/chat/helpers";
+import { filterUsers, isCommandQuery, isUserQuery } from "../utils/chat/helpers";
+import CommandsList from "./CommandsList";
 
 interface InputProps {
   value: string;
@@ -21,16 +22,21 @@ export default function Input({ value, onChange, onSubmit, users }: InputProps) 
   const [popoverVisible, setPopoverVisible] = useState<boolean>(false);
   const [popoverComponent, setPopoverComponent] = useState<'users' | 'commands' | null>(null);
   const [targetUsers, setTargetUsers] = useState<string[]>(users);
-  const inputElementRef = useRef();
+  const [commandQuery, setCommandQuery] = useState<string>('');
+  const inputElementRef = useRef(null) as any;
 
   useEffect(() => {
     if (isUserQuery(value)) {
       const queryString = value.slice(value.indexOf('@') + 1);
-      console.log(queryString)
       const filteredUsers = filterUsers(users, queryString);
       setTargetUsers(filteredUsers);
       setPopoverVisible(true);
       setPopoverComponent('users');
+    } else if (isCommandQuery(value)) {
+      const queryString = value.slice(value.indexOf('/') + 1);
+      setCommandQuery(queryString);
+      setPopoverVisible(true);
+      setPopoverComponent('commands');
     } else {
       setPopoverVisible(false);
       setPopoverComponent(null);
@@ -38,13 +44,15 @@ export default function Input({ value, onChange, onSubmit, users }: InputProps) 
     }
   }, [value])
 
-  const handleSelectUser = (user: string) => {
-    console.log("HIT")
-    const atIndex = value.indexOf('@');
+  const handleSelectOption = (option: string, context: 'user' | 'command') => {
+    const splitChar = context === 'user' ? '@' : '/';
+    const atIndex = value.indexOf(splitChar);
     const pre = value.slice(0, atIndex);
-    onChange(`${pre}@${user} `)
+    onChange(`${pre}${splitChar}${option} `)
     setPopoverVisible(false);
-    inputElementRef.current.focus();
+    if (inputElementRef.current) {
+      inputElementRef.current.focus();
+    }
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,10 +71,13 @@ export default function Input({ value, onChange, onSubmit, users }: InputProps) 
         {popoverComponent === 'users' ? (
           <UserList 
           users={targetUsers} 
-          onClick={handleSelectUser}
+          onClick={handleSelectOption}
           />
         ) : (
-          <h1>test</h1>
+          <CommandsList 
+            query={commandQuery}
+            onClick={handleSelectOption}
+          />
         )}
       </Popover>
 

@@ -1,6 +1,14 @@
+import { COMMANDS } from "./constants";
+
 export const filterUsers = (users: string[], queryString: string) => {
   if (!queryString.length) return users;
   return users.filter(user => user.toLowerCase().startsWith(queryString.toLowerCase()));
+}
+
+export const filterCommands = (query: string) => {
+  console.log("QUERY: ")
+  if (!query.length) return COMMANDS;
+  return COMMANDS.filter(cmd => cmd.name.toLowerCase().startsWith(query.toLowerCase()))
 }
 
 export const isAlphanumeric = (str: string) => {
@@ -9,7 +17,7 @@ export const isAlphanumeric = (str: string) => {
 }
 
 export const isUserQuery = (value: string) => {
-  if (value.includes('@') && isAlphanumeric(value.charAt(value.length - 1))) {
+  if (value.includes('@')) {
     const split = value.split(' ');
     if (!split[split.length - 1].includes('@')) {
       return false;
@@ -18,3 +26,15 @@ export const isUserQuery = (value: string) => {
   }
   return false;
 }
+
+export const isCommandQuery = (value: string) => {
+  if (value.includes('/')) {
+    const split = value.split(' ');
+    if (!split[split.length - 1].includes('/')) {
+      return false;
+    }
+    return true;
+  }
+  return false;
+}
+

@@ -1,4 +1,4 @@
-import { Message } from "./types";
+import { Command, Message } from "./types";
 
 export const DEFAULT_MESSAGES: Message[] = [
   { id: 1, username: 'OwlWatcherAlice', message: 'Those baby owls are adorable!', color: 'purple' },
@@ -124,7 +124,15 @@ export const EXTRA_MESSAGES: Message[] = [
 ];
 
 
-export default DEFAULT_MESSAGES;
-
+export const COMMANDS: Command[] = [
+  { name: 'block', type: 'username', description: 'Block a user from interacting with you on Twitch' },
+  { name: 'unblock', type: 'username', description: 'Remove a user from your block list' },
+  { name: 'color', type: 'color', description: 'Change your username color, i.e. blue, green, etc.' },
+  { name: 'gift', type: 'quantity', description: 'Gift a specified number of Subs to the community.' },
+  { name: 'help', type: 'command', description: 'Get detailed infromation on using a chat command.' },
+  { name: 'mods', type: 'none', description: 'Display a list of moderators for this channel.' },
+  { name: 'vips', type: 'none', description: 'Display a list of VIPs for this channel.' },
+  { name: 'vote', type: 'index', description: 'Vote in the active poll on the given channel.' }
+]
 
 
