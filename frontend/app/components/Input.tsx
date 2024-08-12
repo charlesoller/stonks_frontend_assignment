@@ -26,7 +26,6 @@ export default function Input({ value, onChange, onSubmit, users }: InputProps) 
   const [targetUsers, setTargetUsers] = useState<string[]>(users);
   const [commandQuery, setCommandQuery] = useState<string>('');
   const [emoteQuery, setEmoteQuery] = useState<string>('');
-  const [content, setContent] = useState('');
 
   const inputElementRef = useRef<HTMLDivElement>(null) as any;
 
